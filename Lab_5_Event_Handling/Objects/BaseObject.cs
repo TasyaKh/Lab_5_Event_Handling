@@ -10,12 +10,23 @@ namespace Lab_5_Event_Handling.Objects
     }
     class BaseObject
     {
+        public enum Colors
+        {
+            DEFAULT, COLORLESS,
+        }
+
         protected float X;
         protected float Y;
         protected float Angle;
-        protected int wH;
+
+        protected int wObj;
+        protected int hObject;
+
+        protected Color colorObj;
+        public Colors typeColor;
 
         public Action<BaseObject, BaseObject> onOverlap;
+       
         public BaseObject(float x,float y,float angle)
         {
             X = x;
@@ -56,7 +67,11 @@ namespace Lab_5_Event_Handling.Objects
         {
             // пока возвращаем пустую форму
             return new GraphicsPath();
-        } 
+        }
+        public virtual void reverseColor()
+        {
+             colorObj = Color.Black;
+        }
         public virtual bool Overlaps(BaseObject obj, Graphics g)
         {
             // берем информацию о форме
