@@ -1,8 +1,4 @@
 ﻿using System.Drawing;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 
 namespace Lab_5_Event_Handling.Objects
@@ -12,18 +8,30 @@ namespace Lab_5_Event_Handling.Objects
        
         public Marker(float x, float y, float angle) : base(x, y, angle)
         {
-            wH = 6;
+            wObj = hObject = 6;
+            colorObj = Color.Red;
         }
         public override void Render(Graphics g)
         {
-            g.FillEllipse(new SolidBrush(Color.White), -wH / 2, -wH / 2, wH, wH);
-            g.DrawEllipse(new Pen(Color.Red, 2), -wH, -wH, wH*2, wH*2);
-            g.DrawEllipse(new Pen(Color.Red, 2), -10, -10, 20, 20);
+            g.FillEllipse(new SolidBrush(colorObj), -wObj/ 2, -hObject / 2, wObj, hObject);
+            g.DrawEllipse(new Pen(colorObj, 2), -wObj, -hObject, wObj*2, hObject * 2);
+            g.DrawEllipse(new Pen(colorObj, 2), -10, -10, 20, 20);
+        }
+        public override void reverseColor()
+        {
+            if (typeColor == Colors.DEFAULT)
+            {
+                colorObj = Color.Red;
+            }
+            else
+            {
+                base.reverseColor();
+            }
         }
         public override GraphicsPath GetGraphicsPath()
         {
             var path = base.GetGraphicsPath();
-            path.AddEllipse(-wH / 2, -wH / 2, wH, wH);
+            path.AddEllipse(-wObj / 2, -hObject / 2, wObj, hObject);
             return path;
         }
 
