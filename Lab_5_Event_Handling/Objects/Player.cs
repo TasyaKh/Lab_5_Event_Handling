@@ -8,23 +8,25 @@ namespace Lab_5_Event_Handling.Objects
     {
         public Action<BaseObject> OnOverlap;
         private float vX, vY;
-        private int countHit;
+        protected int countHit; //Счетчик количества попаданий на точки
+                                //public Action<BaseObject, BaseObject> onOverlap;
         public Player(float x, float y, float angle) : base(x, y, angle)
         {
-            wObj = hObject = 30;
-            countHit = 0;
+            wObj = hObj = 30;  //Присваиваем начальную ширину и высоту объукта
 
-            colorObj = Color.DarkOrange;
-            typeColor = Colors.DEFAULT;
+            countHit = 0;      //Счетчик попаданий
+
+            colorObj = Color.DarkOrange; //Нач. цвет
+            typeColor = Colors.DEFAULT;  //Нач. тип цвета
         }
         public override void Render(Graphics g)
-        {
-            g.FillEllipse(new SolidBrush(colorObj), -wObj / 2, -hObject / 2, wObj, hObject);
-            g.DrawEllipse(new Pen(Color.White, 2), -wObj / 2, -hObject / 2, wObj, hObject);
+        {   //Рисуем игрока
+            g.FillEllipse(new SolidBrush(colorObj), -wObj / 2, -hObj / 2, wObj, hObj);
+            g.DrawEllipse(new Pen(Color.White, 2), -wObj / 2, -hObj / 2, wObj, hObj);
             g.DrawLine(new Pen(Color.White, 2), 0, 0, 25, 0);
         }
         public override void reverseColor()
-        { 
+        { //Именяем цвет игрока
            if (typeColor == Colors.DEFAULT)
             {
                 colorObj = Color.DarkOrange; 
@@ -36,26 +38,30 @@ namespace Lab_5_Event_Handling.Objects
         }
         public override GraphicsPath GetGraphicsPath()
         {
-            var path = base.GetGraphicsPath();
-            path.AddEllipse(-wObj / 2, -hObject / 2, wObj, hObject);
+            var path = base.GetGraphicsPath(); //Получаем графику для игрока
+            path.AddEllipse(-wObj / 2, -hObj / 2, wObj, hObj); //Добавляем фигуру для пересечения
             return path;
         }
         public override void Overlap(BaseObject obj)
-        {
-            base.Overlap(obj);
+        { //Если произршло пересечение
+            //base.Overlap(obj);
 
-            if (obj is Dots)
-            {
+            if (obj is CircleAlien)
+            { //Если это точка союзник, то увеличмваю ссчетчик попаданий
                 countHit++;
+            }
+            else if(obj is CircleEnemy && countHit > 0)
+            {//Если это точка враг, то уменьшаю счетчик попаданий
+                countHit--;
             }
                 OnOverlap(obj);
         }
         public int getCountHit()
-        {
+        { //Выводим кол-во попаданий
             return countHit;
         }
         public void Update(float markerX, float markerY)
-        {
+        { //Обновляем позицию и поворот игрока
             float angle = 0;
             
                 float dx = markerX - X;

@@ -1,68 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab_5_Event_Handling.Objects
 {
     class MovingArea:BaseObject,IAction
     {
-        private readonly float speed;
+        private readonly float speed; //Скорость большой прямоугольной области
         public MovingArea(float x, float y, int widthScreen,int heightScreen) : base(x, y, 0)
         {
             //this.widthScreen = widthScreen;
-            wObj = widthScreen / 2;
-            hObject = heightScreen;
-            colorObj = Color.White;
-            speed = 70;
+            wObj = widthScreen / 2; //ширина объекта
+            hObj = heightScreen;    //высота объекта
+            colorObj = Color.White; //цвет объекта
+            speed = 70;             //скорость объекта
         }
         public override void Render(Graphics g)
         {
-            g.FillRectangle(new SolidBrush(colorObj), -wObj / 2, -hObject/ 2, wObj, hObject);
+            g.FillRectangle(new SolidBrush(colorObj), -wObj / 2, -hObj/ 2, wObj, hObj);
         }
         public override GraphicsPath GetGraphicsPath()
         {
             var path = base.GetGraphicsPath();
-            path.AddRectangle(new Rectangle(-wObj / 2, -hObject / 2, wObj, hObject));
+            path.AddRectangle(new Rectangle((int)-wObj / 2, (int)-hObj / 2, (int)wObj, (int)hObj));
             return path;
         }
 
         public void intersectUn(BaseObject obj, bool intersect) {
+            //Смотрим пересеклись ли мы с этой одластью или нет и взависимоси от этого меняем цвет фигур
             BaseObject ob = null;
            
             switch (obj)
             {
-                case Player:
+                case Player: //Если игрок
                     ob = (Player)obj; 
                     break;
-                case Marker:
+                case Marker://Если маркер
                     ob = (Marker)obj;
-                    break;
-                case Dots:
-                    ob = (Dots)obj;
+                    break; 
+                case CircleAlien: //Если союзник
+                    ob = (CircleAlien)obj;
                     break;
             }
  
-            if (ob != null)
-            {
+            if (ob != null && !(ob is CircleEnemy)) //Цвет врага менять не будем
+            {        //Если пересеклись то
                 if (intersect)
-                    ob.typeColor = Colors.COLORLESS;
-                else
-                    ob.typeColor = Colors.DEFAULT;
+                    ob.typeColor = Colors.COLORLESS; //Обесцвечиваем
+                else //Если нет
+                    ob.typeColor = Colors.DEFAULT;   //Ставим по умолчанию(собственный цвет объекта)
                 ob.reverseColor();
             }
                 
         }
         public void Update(float widthScreen = 0,float y = 0)
-        {
+        { //Обновить позицию
             if(X - wObj/2 >= widthScreen)
-            {
+            { //Если вышли за рамки зоны видимости то
                 X = -wObj / 2;
-            }
-            X += widthScreen / speed;
+            } 
+            X += widthScreen / speed; //Увеличиваем позицию по оси х
         }
     }
 }

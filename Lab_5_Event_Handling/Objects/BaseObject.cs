@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
-using System;
 
 namespace Lab_5_Event_Handling.Objects
 {
@@ -15,30 +14,28 @@ namespace Lab_5_Event_Handling.Objects
             DEFAULT, COLORLESS,
         }
 
-        protected float X;
-        protected float Y;
-        protected float Angle;
+        protected float X;     //Позиция х
+        protected float Y;     //Позиция у
+        protected float Angle; //Угол наклона
 
-        protected int wObj;
-        protected int hObject;
+        protected float wObj;  //Ширина объекта
+        protected float hObj;  //Высота объекта
 
-        protected Color colorObj;
-        public Colors typeColor;
+        protected Color colorObj; //Цветобъекта
+        public Colors typeColor;  //Тип цвета объекта
 
-        public Action<BaseObject, BaseObject> onOverlap;
-       
         public BaseObject(float x,float y,float angle)
         {
             X = x;
             Y = y;
-            Angle = angle;
+            Angle = angle;    
         }
 
         public virtual void Render(Graphics g)
         {
         }
         public Matrix getMatrix()
-        {
+        { //Полусить позицию объекта и его угол
             var matrix = new Matrix();
             matrix.Translate(X, Y);
             matrix.Rotate(Angle);
@@ -46,7 +43,7 @@ namespace Lab_5_Event_Handling.Objects
             return matrix;
         }
         protected void setCoords(float x, float y, float angle)
-        {
+        { //Задаем координаты фигуры
             X = x;
             Y = y;
             Angle = angle;
@@ -69,7 +66,7 @@ namespace Lab_5_Event_Handling.Objects
             return new GraphicsPath();
         }
         public virtual void reverseColor()
-        {
+        { //Изменить цвет на черный
              colorObj = Color.Black;
         }
         public virtual bool Overlaps(BaseObject obj, Graphics g)
@@ -90,10 +87,10 @@ namespace Lab_5_Event_Handling.Objects
         }
         public virtual void Overlap(BaseObject obj)
         {
-            if(this.onOverlap != null)
-            {
-                this.onOverlap(this, obj);
-            }
+            //if(this.onOverlap != null)
+            //{
+            //    this.onOverlap(this, obj);
+            //}
         }
     }
     
