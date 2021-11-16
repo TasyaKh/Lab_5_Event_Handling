@@ -39,6 +39,10 @@ namespace Lab_5_Event_Handling
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Black;
             this.pictureBox1.Location = new System.Drawing.Point(69, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(595, 399);
@@ -55,6 +59,7 @@ namespace Lab_5_Event_Handling
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(670, 12);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(223, 399);
@@ -64,9 +69,11 @@ namespace Lab_5_Event_Handling
             // Counter
             // 
             this.Counter.AutoSize = true;
-            this.Counter.Location = new System.Drawing.Point(586, 28);
+            this.Counter.Font = new System.Drawing.Font("Broadway", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Counter.ForeColor = System.Drawing.Color.Transparent;
+            this.Counter.Location = new System.Drawing.Point(556, 30);
             this.Counter.Name = "Counter";
-            this.Counter.Size = new System.Drawing.Size(59, 20);
+            this.Counter.Size = new System.Drawing.Size(81, 22);
             this.Counter.TabIndex = 2;
             this.Counter.Text = "Очки: 0";
             // 
@@ -74,12 +81,15 @@ namespace Lab_5_Event_Handling
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(901, 423);
             this.Controls.Add(this.Counter);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.pictureBox1);
+            this.MaximumSize = new System.Drawing.Size(919, 470);
+            this.MinimumSize = new System.Drawing.Size(919, 470);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Lab_5_Game";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
